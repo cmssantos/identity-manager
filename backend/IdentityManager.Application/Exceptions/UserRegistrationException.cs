@@ -1,14 +1,15 @@
+using IdentityManager.Domain.Exceptions;
+using IdentityManager.Domain.Types;
+
 namespace IdentityManager.Application.Exceptions;
 
-public class UserRegistrationException : Exception
+public class UserRegistrationException : CustomException
 {
-    public UserRegistrationException(string message)
-        : base(message)
+    public UserRegistrationException(ErrorCodes errorCode) : base(errorCode)
     {
     }
 
-    public UserRegistrationException(string message, Exception innerException)
-        : base(message, innerException)
+    public UserRegistrationException(ErrorCodes errorCode, string message) : base(errorCode, message)
     {
     }
 }

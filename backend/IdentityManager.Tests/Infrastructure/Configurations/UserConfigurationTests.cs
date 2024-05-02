@@ -40,7 +40,7 @@ public class UserConfigurationTests
         var emailProperty = entityType.FindProperty("Email");
         Assert.NotNull(emailProperty);
         Assert.False(emailProperty.IsNullable);
-        Assert.Equal(100, emailProperty.GetMaxLength());
+        Assert.Equal(255, emailProperty.GetMaxLength());
 
         var usernameProperty = entityType.FindProperty("Username");
         Assert.NotNull(usernameProperty);

@@ -7,9 +7,13 @@ namespace IdentityManager.Infrastructure.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
+    const int usernameMaxLength = 50;
+    const int emailMaxLength = 255;
+    const int passwordMaxLength = 255;
+
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users", "coin_keeper");
+        builder.ToTable("Users", "identity");
 
         builder.HasKey(u => u.Id);
 
@@ -18,7 +22,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.Username)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(usernameMaxLength);
 
         builder.Property(u => u.Email)
             .IsRequired()
@@ -26,7 +30,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 email => email.Value,
                 value => new Email(value)
             )
-            .HasMaxLength(100);
+            .HasMaxLength(emailMaxLength);
 
         builder.HasIndex(u => u.Email)
            .IsUnique();
@@ -36,7 +40,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion(
                 password => password.Value,
                 value => new Password(value)
-            );
+            )
+            .HasMaxLength(passwordMaxLength);
 
         builder.Property(u => u.IsActive)
             .IsRequired();

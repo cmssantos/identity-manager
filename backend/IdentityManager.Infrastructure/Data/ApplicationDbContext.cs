@@ -12,7 +12,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("coin_keeper");
+        modelBuilder.HasDefaultSchema("identity");
 
         base.OnModelCreating(modelBuilder);
 

@@ -37,6 +37,7 @@ public class UserTokenConfigurationTests
         var tokenProperty = entityType.FindProperty("Token");
         Assert.NotNull(tokenProperty);
         Assert.False(tokenProperty.IsNullable, "Token property should be required.");
+        Assert.Equal(255, tokenProperty.GetMaxLength());
 
         var typeProperty = entityType.FindProperty("Type");
         Assert.NotNull(typeProperty);

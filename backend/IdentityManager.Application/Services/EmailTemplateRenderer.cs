@@ -1,16 +1,27 @@
 using IdentityManager.Application.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityManager.Application.Services;
 
-public class EmailTemplateRenderer : IEmailTemplateRenderer
+public class EmailTemplateRenderer(ILogger<EmailTemplateRenderer> logger) : IEmailTemplateRenderer
 {
+    private readonly ILogger<EmailTemplateRenderer> _logger = logger;
+
     public string RenderTemplate(string template, Dictionary<string, string> data)
     {
-        string renderedTemplate = template;
-        foreach (var entry in data)
+        try
         {
-            renderedTemplate = renderedTemplate.Replace($"{{{entry.Key}}}", entry.Value);
+            string renderedTemplate = template;
+            foreach (var entry in data)
+            {
+                renderedTemplate = renderedTemplate.Replace($"{{{entry.Key}}}", entry.Value);
+            }
+            return renderedTemplate;
         }
-        return renderedTemplate;
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error rendering email template {template}", template);
+            throw;
+        }
     }
 }

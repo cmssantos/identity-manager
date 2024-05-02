@@ -54,7 +54,7 @@ public class RegisterUserCommandHandler(
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unexpected error occurred while creating a user with email {email}.", request.Email);
-            throw new UserRegistrationException("An unexpected error occurred during user registration.", ex);
+            throw new UserRegistrationException(ErrorCodes.EmailCannotBeEmpty, "An unexpected error occurred during user registration.");
         }
     }
 }

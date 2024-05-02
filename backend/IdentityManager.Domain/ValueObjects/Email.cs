@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using IdentityManager.Domain.Exceptions;
 using IdentityManager.Domain.Types;
 
 namespace IdentityManager.Domain.ValueObjects;
@@ -12,7 +13,7 @@ public sealed partial class Email : IEquatable<Email>
     {
         if (string.IsNullOrWhiteSpace(email))
         {
-            throw new ArgumentException(ErrorCodes.EmailCannotBeEmpty.ToString());
+            throw new CustomArgumentException(ErrorCodes.EmailCannotBeEmpty);
         }
 
         // Validate the email using MailAddress
@@ -23,7 +24,7 @@ public sealed partial class Email : IEquatable<Email>
         }
         catch (FormatException)
         {
-            throw new ArgumentException(ErrorCodes.InvalidEmailFormat.ToString());
+            throw new CustomArgumentException(ErrorCodes.InvalidEmailFormat);
         }
     }
 

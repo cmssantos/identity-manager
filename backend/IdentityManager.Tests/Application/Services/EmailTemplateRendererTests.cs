@@ -1,10 +1,19 @@
 using IdentityManager.Application.Services;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace IdentityManager.Application.Tests.Services;
 
 [CollectionDefinition("EmailTemplateRendererTests")]
 public class EmailTemplateRendererTests
 {
+    private readonly Mock<ILogger<EmailTemplateRenderer>> _loggerMock;
+
+    public EmailTemplateRendererTests()
+    {
+        _loggerMock = new Mock<ILogger<EmailTemplateRenderer>>();
+    }
+
     [Fact]
     public void RenderTemplate_ShouldReplacePlaceholdersWithData()
     {
@@ -17,7 +26,7 @@ public class EmailTemplateRendererTests
         };
         var expectedRenderedTemplate = "Hello, Alice. Your verification code is 12345.";
 
-        var renderer = new EmailTemplateRenderer();
+        var renderer = new EmailTemplateRenderer(_loggerMock.Object);
 
         // Act
         var renderedTemplate = renderer.RenderTemplate(template, data);
@@ -35,7 +44,7 @@ public class EmailTemplateRendererTests
         var data = new Dictionary<string, string>(); // Empty data
         var expectedRenderedTemplate = "Hello, {Name}. Your verification code is {Code}."; // Must remain unchanged
 
-        var renderer = new EmailTemplateRenderer();
+        var renderer = new EmailTemplateRenderer(_loggerMock.Object);
 
         // Act
         var renderedTemplate = renderer.RenderTemplate(template, data);
@@ -56,7 +65,7 @@ public class EmailTemplateRendererTests
             { "Code", "12345" }
         };
 
-        var renderer = new EmailTemplateRenderer();
+        var renderer = new EmailTemplateRenderer(_loggerMock.Object);
 
         // Act
         var renderedTemplate = renderer.RenderTemplate(template, data);
@@ -77,7 +86,7 @@ public class EmailTemplateRendererTests
         };
         var expectedRenderedTemplate = "Hello, Alice. Your verification code is 12345. Welcome to {Company}.";
 
-        var renderer = new EmailTemplateRenderer();
+        var renderer = new EmailTemplateRenderer(_loggerMock.Object);
 
         // Act
         var renderedTemplate = renderer.RenderTemplate(template, data);

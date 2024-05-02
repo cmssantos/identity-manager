@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using IdentityManager.Domain.Exceptions;
 using IdentityManager.Domain.Types;
 
 namespace IdentityManager.Domain.ValueObjects;
@@ -15,33 +16,33 @@ public sealed partial class Password : IEquatable<Password>
     {
         if (string.IsNullOrWhiteSpace(password))
         {
-            throw new ArgumentException(ErrorCodes.PasswordCannotBeEmpty.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordCannotBeEmpty);
         }
 
         // Check if the password meets the desired complexity requirements
         if (password.Length < 8)
         {
-            throw new ArgumentException(ErrorCodes.PasswordTooShort.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordTooShort);
         }
 
         if (!HasUpperCase(password))
         {
-            throw new ArgumentException(ErrorCodes.PasswordMustContainUpperCase.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordMustContainUpperCase);
         }
 
         if (!HasLowerCase(password))
         {
-            throw new ArgumentException(ErrorCodes.PasswordMustContainLowerCase.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordMustContainLowerCase);
         }
 
         if (!HasDigit(password))
         {
-            throw new ArgumentException(ErrorCodes.PasswordMustContainDigit.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordMustContainDigit);
         }
 
         if (!HasSpecialCharacter(password))
         {
-            throw new ArgumentException(ErrorCodes.PasswordMustContainSpecialCharacter.ToString());
+            throw new CustomArgumentException(ErrorCodes.PasswordMustContainSpecialCharacter);
         }
 
         // Hash the plain password using a secure hash function

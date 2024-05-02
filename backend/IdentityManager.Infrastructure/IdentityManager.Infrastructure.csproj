@@ -6,6 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="mailKit" Version="4.5.0" />
     <PackageReference Include="microsoft.entityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -13,6 +14,7 @@
     </PackageReference>
     <PackageReference Include="microsoft.EntityFrameworkCore.inMemory" Version="8.0.4" />
     <PackageReference Include="microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
+    <PackageReference Include="mimeKit" Version="4.5.0" />
     <PackageReference Include="npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
   </ItemGroup>
 

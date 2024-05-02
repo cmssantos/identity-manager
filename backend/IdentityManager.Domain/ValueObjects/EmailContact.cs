@@ -1,3 +1,4 @@
+using IdentityManager.Domain.Exceptions;
 using IdentityManager.Domain.Types;
 
 namespace IdentityManager.Domain.ValueObjects;
@@ -12,7 +13,7 @@ public sealed partial class EmailContact : IEquatable<EmailContact>
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new ArgumentException(ErrorCodes.NameCannotBeEmpty.ToString());
+            throw new CustomArgumentException(ErrorCodes.NameCannotBeEmpty);
         }
 
         Name = name;

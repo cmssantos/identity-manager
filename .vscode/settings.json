@@ -4,6 +4,8 @@
     "projectKey": "Identity-Manager"
   },
   "cSpell.words": [
-    "MediatR"
+    "Dtos",
+    "MediatR",
+    "UseNpgsql"
   ]
 }

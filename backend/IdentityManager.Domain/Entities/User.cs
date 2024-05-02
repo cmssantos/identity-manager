@@ -1,4 +1,5 @@
-﻿using IdentityManager.Domain.Types;
+﻿using IdentityManager.Domain.Exceptions;
+using IdentityManager.Domain.Types;
 using IdentityManager.Domain.ValueObjects;
 
 namespace IdentityManager.Domain.Entities;
@@ -30,7 +31,7 @@ public class User
         // Validates input arguments to ensure they are not null or empty
         if (string.IsNullOrWhiteSpace(username))
         {
-            throw new ArgumentException(ErrorCodes.UsernameCannotBeEmpty.ToString());
+            throw new CustomArgumentException(ErrorCodes.UsernameCannotBeEmpty);
         }
 
         Id = Guid.NewGuid();
@@ -40,7 +41,7 @@ public class User
         Password = password;
         IsActive = false;
 
-        CreatedAt = DateTime.Now;
+        CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
     }
 
@@ -73,7 +74,7 @@ public class User
             }
             else
             {
-                throw new ArgumentException(ErrorCodes.ExistingTokenFound.ToString());
+                throw new CustomArgumentException(ErrorCodes.ExistingTokenFound);
             }
         }
 

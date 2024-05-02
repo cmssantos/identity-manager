@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using IdentityManager.Domain.Exceptions;
 using IdentityManager.Domain.Types;
 
 namespace IdentityManager.Domain.Entities;
@@ -28,12 +29,12 @@ public class UserToken
 
         if (!Enum.IsDefined(typeof(TokenType), type))
         {
-            throw new ArgumentException(ErrorCodes.InvalidUserTokenType.ToString());
+            throw new CustomArgumentException(ErrorCodes.InvalidUserTokenType);
         }
 
         if (expirationInMinutes <= 0)
         {
-            throw new ArgumentException(ErrorCodes.InvalidUserTokenExpiration.ToString());
+            throw new CustomArgumentException(ErrorCodes.InvalidUserTokenExpiration);
         }
 
         User = user;
